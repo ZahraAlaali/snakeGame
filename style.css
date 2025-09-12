@@ -31,8 +31,14 @@ main {
 }
 
 .even {
-  background-color: rgb(203, 164, 239);
+  background-color: rgb(209, 178, 239);
 }
 .odd {
-  background-color: rgb(150, 229, 162);
+  background-color: rgb(172, 229, 180);
+}
+.snakeHead {
+  background-color: orangered;
+}
+.snakeBody {
+  background-color: orange;
 }
