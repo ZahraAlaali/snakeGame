@@ -1,12 +1,16 @@
 // Variables
-const snake = document.createElement("div")
+let allDivs
 const circle = document.createElement("div")
 const currentSpan = document.querySelector(".current")
 const bestSpan = document.querySelector(".best")
 
-let headPosition = [
+let snakePosition = [
   {
     x: 5,
+    y: 7,
+  },
+  {
+    x: 4,
     y: 7,
   },
 ]
@@ -15,7 +19,6 @@ let circlePosition = {
   y: null,
 }
 let direction
-let nextDirection
 let active = false
 let current = 0
 let best = 0
@@ -32,20 +35,18 @@ const createBoard = () => {
     }
     document.querySelector("main").append(myDiv)
   }
+  allDivs = document.querySelectorAll("main div")
 }
-const createSnake = () => {
+const placeSnake = () => {
   //snake
-  snake.style.width = "30px"
-  snake.style.height = "30px"
-  snake.style.backgroundColor = "coral"
-  document.querySelector("main").append(snake)
-  snake.style.position = "relative"
-  snake.style.top = `${headPosition[0].y * -30}px`
-  snake.style.left = `${headPosition[0].x * 30}px`
+  for (let i = 0; i < snakePosition.length; i++) {
+    let place = snakePosition[i].y * 15 + snakePosition[i].x
+    allDivs[place].classList.add(i === 0 ? "snakeHead" : "snakeBody")
+  }
 }
 const circlePlace = () => {
   //circle
-  circlePosition.x = Math.floor(Math.random() * 15 - 1)
+  circlePosition.x = Math.floor(Math.random() * 15)
   circlePosition.y = Math.floor(Math.random() * 15 + 1)
   if (!active) {
     circle.style.width = "30px"
@@ -60,15 +61,19 @@ const circlePlace = () => {
 }
 const frame = () => {
   if (
-    headPosition[0].y <= 0 ||
-    headPosition[0].y >= 16 ||
-    headPosition[0].x <= -1 ||
-    headPosition[0].x >= 15
+    snakePosition[0].y <= 0 ||
+    snakePosition[0].y >= 16 ||
+    snakePosition[0].x <= 0 ||
+    snakePosition[0].x >= 16
   ) {
     direction = null
-    headPosition = [
+    snakePosition = [
       {
         x: 5,
+        y: 7,
+      },
+      {
+        x: 4,
         y: 7,
       },
     ]
@@ -77,16 +82,21 @@ const frame = () => {
     current = 0
     currentSpan.innerText = current.toString()
   } else {
-    if (direction === "RIGHT") headPosition[0].x += 1
-    else if (direction === "LEFT") headPosition[0].x -= 1
-    else if (direction === "UP") headPosition[0].y += 1
-    else headPosition[0].y -= 1
-    snake.style.top = `${headPosition[0].y * -30}px`
-    snake.style.left = `${headPosition[0].x * 30}px`
+    if (direction === "RIGHT") {
+      snakePosition[0].x += 1
+    } else if (direction === "LEFT") {
+      snakePosition[0].x -= 1
+    } else if (direction === "UP") {
+      snakePosition[0].y += 1
+    } else {
+      snakePosition[0].y -= 1
+    }
+    placeSnake()
     if (
-      headPosition[0].y === circlePosition.y &&
-      headPosition[0].x === circlePosition.x + 1
+      snakePosition[0].y === circlePosition.y &&
+      snakePosition[0].x === circlePosition.x
     ) {
+      //increase the size of the snake
       current += 1
       currentSpan.innerText = current.toString()
       if (current > best) {
@@ -108,25 +118,25 @@ document.addEventListener("keydown", (event) => {
   if (
     event.code === "ArrowDown" &&
     direction != "UP" &&
-    headPosition[0].y != 1
+    snakePosition[0].y != 1
   ) {
     direction = "DOWN"
   } else if (
     event.code === "ArrowUp" &&
     direction != "DOWN" &&
-    headPosition[0].y != 15
+    snakePosition[0].y != 15
   ) {
     direction = "UP"
   } else if (
     event.code === "ArrowRight" &&
     direction != "LEFT" &&
-    headPosition[0].x != 14
+    snakePosition[0].x != 14
   ) {
     direction = "RIGHT"
   } else if (
     event.code === "ArrowLeft" &&
     direction != "RIGHT" &&
-    headPosition[0].x != 0
+    snakePosition[0].x != 0
   ) {
     direction = "LEFT"
   }
@@ -134,5 +144,5 @@ document.addEventListener("keydown", (event) => {
 
 //init
 createBoard()
-createSnake()
+placeSnake()
 circlePlace()
