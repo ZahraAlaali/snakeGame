@@ -1,6 +1,6 @@
 // Variables
 let allDivs = []
-let lastMove
+let speed = 250
 const circle = document.createElement("div")
 const currentSpan = document.querySelector("header .current")
 const bestSpan = document.querySelector("header .best")
@@ -47,17 +47,10 @@ const startGame = () => {
 // reset function
 const reset = () => {
   direction = "RIGHT"
-  // remove class snakeHead/snakeBody
-  for (let i = 0; i < lastMove.length; i++) {
-    const block = allDivs[calcPlace(i, 2)]
-    if (block.classList.contains("snakeHead")) {
-      block.classList.remove("snakeHead")
-    }
-    if (block.classList.contains("snakeBody")) {
-      block.classList.remove("snakeBody")
-    }
-  }
-  lastMove = []
+  speed = 250
+  allDivs.forEach((div) => {
+    div.classList.remove("snakeHead", "snakeBody")
+  })
   snakePosition = [
     {
       x: 5,
@@ -182,7 +175,6 @@ const placeSnake = () => {
 
 // reassign the values for the position of the snake
 const modifySnakePosition = () => {
-  lastMove = snakePosition.map((block) => ({ ...block }))
   let place = calcPlace(snakePosition.length - 1, 1)
   for (let i = snakePosition.length - 1; i >= 1; i--) {
     snakePosition[i].x = snakePosition[i - 1].x
@@ -197,10 +189,10 @@ const modifySnakePosition = () => {
   } else {
     snakePosition[0].y += 1
   }
-  // remove the tail
-  allDivs[place].classList.remove("snakeBody")
+
   if (!checkForLose()) {
     placeSnake()
+    allDivs[place].classList.remove("snakeBody")
   }
 }
 
@@ -212,6 +204,23 @@ const frame = () => {
     //increase the size of the snake
     snakePosition.push({ x: null, y: null })
     current += 1
+    if (current === 3) {
+      clearInterval(id)
+      speed = 200
+      id = setInterval(frame, speed)
+    } else if (current === 6) {
+      clearInterval(id)
+      speed = 150
+      id = setInterval(frame, speed)
+    } else if (current === 10) {
+      clearInterval(id)
+      speed = 100
+      id = setInterval(frame, speed)
+    } else if (current === 20) {
+      clearInterval(id)
+      speed = 85
+      id = setInterval(frame, speed)
+    }
     currentSpan.innerText = current.toString()
     if (current > best) {
       bestSpan.innerText = current.toString()
@@ -226,7 +235,7 @@ const frame = () => {
 // Events
 document.addEventListener("keydown", (event) => {
   if (!active) {
-    id = setInterval(frame, 200)
+    id = setInterval(frame, speed)
     active = true
   }
   if (
