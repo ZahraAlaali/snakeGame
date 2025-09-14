@@ -6,11 +6,11 @@ const bestSpan = document.querySelector(".best")
 
 let snakePosition = [
   {
-    x: 5,
+    x: 4,
     y: 7,
   },
   {
-    x: 4,
+    x: 3,
     y: 7,
   },
 ]
@@ -24,6 +24,22 @@ let current = 0
 let best = 0
 
 // Functions
+const calcPlace = (index) => {
+  return snakePosition[index].y * 15 + snakePosition[index].x
+}
+
+const touch = () => {
+  for (let i = 1; i < snakePosition.length; i++) {
+    if (
+      snakePosition[0].x === snakePosition[i].x &&
+      snakePosition[0].y === snakePosition[i].y
+    ) {
+      return true
+    }
+  }
+  return false
+}
+
 const createBoard = () => {
   for (let i = 0; i < 225; i++) {
     const myDiv = document.createElement("div")
@@ -37,6 +53,7 @@ const createBoard = () => {
   }
   allDivs = document.querySelectorAll("main div")
 }
+
 const circlePlace = () => {
   //circle
   let x = Math.floor(Math.random() * 15)
@@ -55,12 +72,11 @@ const circlePlace = () => {
   circle.style.left = `${x * 30}px`
   circle.style.visibility = "visible"
 }
+
 const placeSnake = () => {
   //snake
-  console.log("place snake")
   for (let i = 0; i < snakePosition.length; i++) {
-    console.log("place snake in loop")
-    let place = snakePosition[i].y * 15 + snakePosition[i].x
+    let place = calcPlace(i)
     if (i === 0) {
       allDivs[place].classList.add("snakeHead")
     } else {
@@ -73,9 +89,7 @@ const placeSnake = () => {
 }
 
 const modifySnakePosition = () => {
-  let place =
-    snakePosition[snakePosition.length - 1].y * 15 +
-    snakePosition[snakePosition.length - 1].x
+  let place = calcPlace(snakePosition.length - 1)
   // remove the tail
   allDivs[place].classList.remove("snakeBody")
   for (let i = snakePosition.length - 1; i >= 1; i--) {
@@ -93,12 +107,14 @@ const modifySnakePosition = () => {
   }
   placeSnake()
 }
+
 const frame = () => {
   if (
     snakePosition[0].y < 0 ||
     snakePosition[0].y > 14 ||
     snakePosition[0].x < 0 ||
-    snakePosition[0].x > 14
+    snakePosition[0].x > 14 ||
+    touch()
   ) {
     direction = null
     snakePosition = [
@@ -116,8 +132,6 @@ const frame = () => {
     current = 0
     currentSpan.innerText = current.toString()
   } else {
-    console.log(snakePosition)
-    console.log(circlePosition)
     if (
       snakePosition[0].y === circlePosition.y &&
       snakePosition[0].x === circlePosition.x
@@ -140,7 +154,7 @@ const frame = () => {
 // Events
 document.addEventListener("keydown", (event) => {
   if (!active) {
-    id = setInterval(frame, 300)
+    id = setInterval(frame, 200)
     active = true
   }
   if (event.code === "ArrowDown" && direction != "UP") {
