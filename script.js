@@ -1,8 +1,12 @@
 // Variables
-let allDivs
+let allDivs = []
+let lastMove
 const circle = document.createElement("div")
-const currentSpan = document.querySelector(".current")
-const bestSpan = document.querySelector(".best")
+const currentSpan = document.querySelector("header .current")
+const bestSpan = document.querySelector("header .best")
+const overCurrent = document.querySelector(".score .current")
+const overBest = document.querySelector(".score .best")
+const gameOverPopUp = document.querySelector(".gameOver")
 
 let snakePosition = [
   {
@@ -25,6 +29,61 @@ let best = 0
 
 // Functions
 
+// Calculate the position of the snake
+const calcPlace = (index, num) => {
+  if (num === 1) {
+    return snakePosition[index].y * 15 + snakePosition[index].x
+  } else {
+    return lastMove[index].y * 15 + lastMove[index].x
+  }
+}
+
+const startGame = () => {
+  //init
+  createBoard()
+  placeSnake()
+  circlePlace()
+}
+// reset function
+const reset = () => {
+  direction = "RIGHT"
+  // remove class snakeHead/snakeBody
+  console.log(snakePosition)
+  console.log(lastMove)
+  for (let i = 0; i < lastMove.length; i++) {
+    const block = allDivs[calcPlace(i, 2)]
+    console.log(block)
+    if (block.classList.contains("snakeHead")) {
+      block.classList.remove("snakeHead")
+    }
+    if (block.classList.contains("snakeBody")) {
+      block.classList.remove("snakeBody")
+    }
+  }
+  lastMove = []
+  snakePosition = [
+    {
+      x: 5,
+      y: 7,
+    },
+    {
+      x: 4,
+      y: 7,
+    },
+  ]
+  current = 0
+  currentSpan.innerText = current.toString()
+  startGame()
+  gameOverPopUp.style.visibility = "hidden"
+}
+
+// gameOver popUp
+const gameOver = () => {
+  overCurrent.innerText = current.toString()
+  overBest.innerText = best.toString()
+  gameOverPopUp.style.visibility = "visible"
+}
+
 // check it lose
 const checkForLose = () => {
   if (
@@ -34,28 +93,12 @@ const checkForLose = () => {
     snakePosition[0].x > 14 ||
     touch()
   ) {
-    direction = null
-    snakePosition = [
-      {
-        x: 5,
-        y: 7,
-      },
-      {
-        x: 4,
-        y: 7,
-      },
-    ]
     clearInterval(id)
     active = false
-    current = 0
-    currentSpan.innerText = current.toString()
+    gameOver()
     return true
   }
   return false
-}
-// Calculate the position of the snake
-const calcPlace = (index) => {
-  return snakePosition[index].y * 15 + snakePosition[index].x
 }
 
 // checks if the snake touches itself, return true when it does, false when its not
@@ -128,7 +171,7 @@ const circlePlace = () => {
 const placeSnake = () => {
   //snake
   for (let i = 0; i < snakePosition.length; i++) {
-    let place = calcPlace(i)
+    let place = calcPlace(i, 1)
     if (i === 0) {
       allDivs[place].classList.add("snakeHead")
     } else {
@@ -142,9 +185,8 @@ const placeSnake = () => {
 
 // reassign the values for the position of the snake
 const modifySnakePosition = () => {
-  let place = calcPlace(snakePosition.length - 1)
-  // remove the tail
-
+  lastMove = snakePosition.map((block) => ({ ...block }))
+  let place = calcPlace(snakePosition.length - 1, 1)
   for (let i = snakePosition.length - 1; i >= 1; i--) {
     snakePosition[i].x = snakePosition[i - 1].x
     snakePosition[i].y = snakePosition[i - 1].y
@@ -159,6 +201,7 @@ const modifySnakePosition = () => {
     snakePosition[0].y += 1
   }
   if (!checkForLose()) {
+    // remove the tail
     allDivs[place].classList.remove("snakeBody")
     placeSnake()
   }
@@ -185,7 +228,6 @@ const frame = () => {
 
 // Events
 document.addEventListener("keydown", (event) => {
-  console.log(event)
   if (!active) {
     id = setInterval(frame, 200)
     active = true
@@ -213,7 +255,6 @@ document.addEventListener("keydown", (event) => {
   }
 })
 
-//init
-createBoard()
-placeSnake()
-circlePlace()
+document.querySelector(".playAgain").addEventListener("click", reset)
+
+startGame()
