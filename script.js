@@ -48,11 +48,8 @@ const startGame = () => {
 const reset = () => {
   direction = "RIGHT"
   // remove class snakeHead/snakeBody
-  console.log(snakePosition)
-  console.log(lastMove)
   for (let i = 0; i < lastMove.length; i++) {
     const block = allDivs[calcPlace(i, 2)]
-    console.log(block)
     if (block.classList.contains("snakeHead")) {
       block.classList.remove("snakeHead")
     }
@@ -200,9 +197,9 @@ const modifySnakePosition = () => {
   } else {
     snakePosition[0].y += 1
   }
+  // remove the tail
+  allDivs[place].classList.remove("snakeBody")
   if (!checkForLose()) {
-    // remove the tail
-    allDivs[place].classList.remove("snakeBody")
     placeSnake()
   }
 }
@@ -257,4 +254,5 @@ document.addEventListener("keydown", (event) => {
 
 document.querySelector(".playAgain").addEventListener("click", reset)
 
+// call
 startGame()
