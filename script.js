@@ -11,8 +11,8 @@ const buttons = document.querySelectorAll(".level button")
 const circle = document.createElement("div")
 const currentSpan = document.querySelector("header .current")
 const bestSpan = document.querySelector("header .best")
-const overCurrent = document.querySelector(".score .current")
-const overBest = document.querySelector(".score .best")
+const overCurrent = document.querySelector(".final .current")
+const overBest = document.querySelector(".final .best")
 const gameOverPopUp = document.querySelector(".gameOver")
 
 let snakePosition = [
@@ -168,7 +168,6 @@ const circlePlace = () => {
   }
   circle.style.top = `${y * -30}px`
   circle.style.left = `${x * 30}px`
-  circle.style.visibility = "visible"
 }
 
 // places the snake on the board
@@ -239,7 +238,6 @@ const frame = () => {
       bestSpan.innerText = current.toString()
       best = current
     }
-    circle.style.visibility = "hidden"
     circlePlace()
   }
   modifySnakePosition()

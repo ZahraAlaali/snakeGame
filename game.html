@@ -9,8 +9,14 @@
   </head>
   <body id="page2">
     <header>
-      <h4>Current: <span class="current">0</span></h4>
-      <h4>Best: <span class="best">0</span></h4>
+      <div class="score">
+        <h4>Current: <span class="current">0</span></h4>
+        <h4 class="bestImg">
+          <img src="./images/fluent-color--trophy-48.svg" alt="" />:
+          <span class="best">0</span>
+        </h4>
+      </div>
+
       <div class="level">
         <button>EASY</button>
         <button>HARD</button>
@@ -19,9 +25,12 @@
     <main></main>
     <div class="gameOver">
       <h3>Game Over</h3>
-      <div class="score">
+      <div class="score final">
         <h4>Current: <span class="current"></span></h4>
-        <h4>Best: <span class="best"></span></h4>
+        <h4 class="bestImg">
+          <img src="./images/fluent-color--trophy-48.svg" alt="" />:
+          <span class="best"></span>
+        </h4>
       </div>
 
       <button class="playAgain">Play Again</button>
