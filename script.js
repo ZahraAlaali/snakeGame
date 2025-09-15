@@ -1,6 +1,13 @@
 // Variables
+
+// Get the full URL parameters
+const params = new URLSearchParams(window.location.search)
+let level = params.get("level")
+console.log(level)
+
 let allDivs = []
 let speed = 250
+const buttons = document.querySelectorAll(".level button")
 const circle = document.createElement("div")
 const currentSpan = document.querySelector("header .current")
 const bestSpan = document.querySelector("header .best")
@@ -43,6 +50,9 @@ const startGame = () => {
   createBoard()
   placeSnake()
   circlePlace()
+  level === "EASY"
+    ? (buttons[0].style.backgroundColor = " rgb(180, 180, 180)")
+    : (buttons[1].style.backgroundColor = " rgb(180, 180, 180)")
 }
 // reset function
 const reset = () => {
@@ -148,7 +158,7 @@ const circlePlace = () => {
     circle.style.width = "30px"
     circle.style.height = "30px"
     circle.style.borderRadius = "50%"
-    circle.style.backgroundColor = "black"
+    circle.style.backgroundColor = "#0077ffff"
     document.querySelector("main").append(circle)
     circle.style.position = "relative"
   }
@@ -191,8 +201,8 @@ const modifySnakePosition = () => {
   }
 
   if (!checkForLose()) {
-    placeSnake()
     allDivs[place].classList.remove("snakeBody")
+    placeSnake()
   }
 }
 
@@ -204,23 +214,22 @@ const frame = () => {
     //increase the size of the snake
     snakePosition.push({ x: null, y: null })
     current += 1
-    if (current === 3) {
-      clearInterval(id)
-      speed = 200
-      id = setInterval(frame, speed)
-    } else if (current === 6) {
-      clearInterval(id)
-      speed = 150
-      id = setInterval(frame, speed)
-    } else if (current === 10) {
-      clearInterval(id)
-      speed = 100
-      id = setInterval(frame, speed)
-    } else if (current === 20) {
-      clearInterval(id)
-      speed = 85
-      id = setInterval(frame, speed)
+    if (level === "HARD") {
+      if (current === 5) {
+        clearInterval(id)
+        speed = 200
+        id = setInterval(frame, speed)
+      } else if (current === 10) {
+        clearInterval(id)
+        speed = 150
+        id = setInterval(frame, speed)
+      } else if (current === 20) {
+        clearInterval(id)
+        speed = 120
+        id = setInterval(frame, speed)
+      }
     }
+
     currentSpan.innerText = current.toString()
     if (current > best) {
       bestSpan.innerText = current.toString()
@@ -233,6 +242,23 @@ const frame = () => {
 }
 
 // Events
+
+buttons.forEach((button, index) => {
+  button.addEventListener("click", () => {
+    if (!active) {
+      if (index === 0) {
+        buttons[0].style.backgroundColor = " rgb(180, 180, 180)"
+        buttons[1].style.backgroundColor = "white"
+        level = "EASY"
+      } else {
+        buttons[0].style.backgroundColor = "white"
+        buttons[1].style.backgroundColor = " rgb(180, 180, 180)"
+        level = "HARD"
+      }
+    }
+  })
+})
+
 document.addEventListener("keydown", (event) => {
   if (!active) {
     id = setInterval(frame, speed)
@@ -262,6 +288,4 @@ document.addEventListener("keydown", (event) => {
 })
 
 document.querySelector(".playAgain").addEventListener("click", reset)
-
-// call
 startGame()
