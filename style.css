@@ -38,7 +38,6 @@ main {
   height: 450px;
   background-color: rgb(0, 0, 0);
   gap: 2px;
-  border: 2px black solid;
 }
 
 .even,
@@ -46,6 +45,7 @@ main {
   background-color: #0b192c;
   border-radius: 5px;
 }
+
 .snakeHead {
   background-color: #ff6500;
   box-shadow: 1px 1px 5px 5px #4c2508;

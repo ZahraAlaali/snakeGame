@@ -4,7 +4,7 @@
 const params = new URLSearchParams(window.location.search)
 let level = params.get("level")
 console.log(level)
-
+let firstTime = 0
 let allDivs = []
 let speed = 250
 const buttons = document.querySelectorAll(".level button")
@@ -47,7 +47,11 @@ const calcPlace = (index, num) => {
 
 const startGame = () => {
   //init
-  createBoard()
+  if (firstTime === 0) {
+    createBoard()
+    firstTime++
+  }
+
   placeSnake()
   circlePlace()
   level === "EASY"
@@ -155,8 +159,8 @@ const circlePlace = () => {
   } while (onSnake())
 
   if (!active) {
-    circle.style.width = "30px"
-    circle.style.height = "30px"
+    circle.style.width = "28px"
+    circle.style.height = "28px"
     circle.style.borderRadius = "50%"
     circle.style.backgroundColor = "#0077ffff"
     document.querySelector("main").append(circle)
@@ -288,4 +292,5 @@ document.addEventListener("keydown", (event) => {
 })
 
 document.querySelector(".playAgain").addEventListener("click", reset)
+
 startGame()
