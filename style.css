@@ -153,3 +153,10 @@ button:hover {
 #page1 h1 {
   font-size: 6rem;
 }
+
+.backImg {
+  position: absolute;
+}
+.backImg img {
+  width: 550px;
+}
