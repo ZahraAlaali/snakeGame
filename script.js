@@ -5,7 +5,7 @@ const params = new URLSearchParams(window.location.search)
 if (params.get("level")) {
   level = params.get("level")
 }
-
+let flips = 0
 let firstTime = 0
 let allDivs = []
 let speed = 250
@@ -84,6 +84,7 @@ const reset = () => {
       y: 7,
     },
   ]
+  flips = 0
   current = 0
   currentSpan.innerText = current.toString()
   startGame()
@@ -252,6 +253,7 @@ const frame = () => {
     circlePlace()
   }
   modifySnakePosition()
+  flips = 0
 }
 
 // Events
@@ -279,30 +281,36 @@ buttons.forEach((button, index) => {
 
 document.addEventListener("keydown", (event) => {
   if (gameOverPopUp.style.visibility !== "visible") {
-    if (!active) {
-      id = setInterval(frame, speed)
-      active = true
-    }
-    if (
-      (event.code === "ArrowDown" || event.key.toUpperCase() === "S") &&
-      direction != "UP"
-    ) {
-      direction = "DOWN"
-    } else if (
-      (event.code === "ArrowUp" || event.key.toUpperCase() === "W") &&
-      direction != "DOWN"
-    ) {
-      direction = "UP"
-    } else if (
-      (event.code === "ArrowRight" || event.key.toUpperCase() === "D") &&
-      direction != "LEFT"
-    ) {
-      direction = "RIGHT"
-    } else if (
-      (event.code === "ArrowLeft" || event.key.toUpperCase() === "A") &&
-      direction != "RIGHT"
-    ) {
-      direction = "LEFT"
+    if (flips < 1) {
+      if (!active) {
+        id = setInterval(frame, speed)
+        active = true
+      }
+      if (
+        (event.code === "ArrowDown" || event.key.toUpperCase() === "S") &&
+        direction != "UP"
+      ) {
+        direction = "DOWN"
+        flips++
+      } else if (
+        (event.code === "ArrowUp" || event.key.toUpperCase() === "W") &&
+        direction != "DOWN"
+      ) {
+        direction = "UP"
+        flips++
+      } else if (
+        (event.code === "ArrowRight" || event.key.toUpperCase() === "D") &&
+        direction != "LEFT"
+      ) {
+        direction = "RIGHT"
+        flips++
+      } else if (
+        (event.code === "ArrowLeft" || event.key.toUpperCase() === "A") &&
+        direction != "RIGHT"
+      ) {
+        direction = "LEFT"
+        flips++
+      }
     }
   }
 })
