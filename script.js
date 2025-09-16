@@ -1,8 +1,10 @@
 // Variables
-
+let level = "EASY"
 // Get the full URL parameters
 const params = new URLSearchParams(window.location.search)
-let level = params.get("level")
+if (params.get("level")) {
+  level = params.get("level")
+}
 
 let firstTime = 0
 let allDivs = []
@@ -36,6 +38,12 @@ let best = 0
 
 // Functions
 
+const playSound = (filePath) => {
+  const audio = new Audio(filePath)
+  audio.currentTime = 0
+  audio.play()
+}
+
 // Calculate the position of the snake
 const calcPlace = (index) => {
   return snakePosition[index].y * 15 + snakePosition[index].x
@@ -60,6 +68,7 @@ const startGame = () => {
 }
 // reset function
 const reset = () => {
+  playSound("./audio/computer-mouse-click-352734.mp3")
   direction = "RIGHT"
   speed = 250
   allDivs.forEach((div) => {
@@ -97,6 +106,7 @@ const checkForLose = () => {
     snakePosition[0].x > 14 ||
     touch()
   ) {
+    playSound("./audio/thud-impact-sound-sfx-379990-[AudioTrimmer.com].mp3")
     clearInterval(id)
     active = false
     gameOver()
@@ -214,6 +224,7 @@ const frame = () => {
     snakePosition[0].y === circlePosition.y &&
     snakePosition[0].x === circlePosition.x
   ) {
+    playSound("./audio/pop-402324-[AudioTrimmer.com].mp3")
     //increase the size of the snake
     snakePosition.push({ x: null, y: null })
     current += 1
@@ -248,6 +259,7 @@ const frame = () => {
 buttons.forEach((button, index) => {
   button.addEventListener("click", () => {
     if (!active) {
+      playSound("./audio/computer-mouse-click-352734.mp3")
       if (index === 0) {
         buttons[0].style.backgroundColor = " rgb(180, 180, 180)"
         buttons[1].style.backgroundColor = "white"
