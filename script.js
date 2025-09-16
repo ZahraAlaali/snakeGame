@@ -266,30 +266,32 @@ buttons.forEach((button, index) => {
 })
 
 document.addEventListener("keydown", (event) => {
-  if (!active) {
-    id = setInterval(frame, speed)
-    active = true
-  }
-  if (
-    (event.code === "ArrowDown" || event.key.toUpperCase() === "S") &&
-    direction != "UP"
-  ) {
-    direction = "DOWN"
-  } else if (
-    (event.code === "ArrowUp" || event.key.toUpperCase() === "W") &&
-    direction != "DOWN"
-  ) {
-    direction = "UP"
-  } else if (
-    (event.code === "ArrowRight" || event.key.toUpperCase() === "D") &&
-    direction != "LEFT"
-  ) {
-    direction = "RIGHT"
-  } else if (
-    (event.code === "ArrowLeft" || event.key.toUpperCase() === "A") &&
-    direction != "RIGHT"
-  ) {
-    direction = "LEFT"
+  if (gameOverPopUp.style.visibility !== "visible") {
+    if (!active) {
+      id = setInterval(frame, speed)
+      active = true
+    }
+    if (
+      (event.code === "ArrowDown" || event.key.toUpperCase() === "S") &&
+      direction != "UP"
+    ) {
+      direction = "DOWN"
+    } else if (
+      (event.code === "ArrowUp" || event.key.toUpperCase() === "W") &&
+      direction != "DOWN"
+    ) {
+      direction = "UP"
+    } else if (
+      (event.code === "ArrowRight" || event.key.toUpperCase() === "D") &&
+      direction != "LEFT"
+    ) {
+      direction = "RIGHT"
+    } else if (
+      (event.code === "ArrowLeft" || event.key.toUpperCase() === "A") &&
+      direction != "RIGHT"
+    ) {
+      direction = "LEFT"
+    }
   }
 })
 
