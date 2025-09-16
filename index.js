@@ -1,5 +1,12 @@
 const buttons = document.querySelectorAll(".level button")
+const allButtons = document.querySelectorAll("button")
 let choice = "EASY"
+
+const playSound = (filePath) => {
+  const audio = new Audio(filePath)
+  audio.currentTime = 0
+  audio.play()
+}
 
 document.querySelector(".start").addEventListener("click", () => {
   window.location.href = `./game.html?level=${choice}`
@@ -7,6 +14,7 @@ document.querySelector(".start").addEventListener("click", () => {
 
 buttons.forEach((button, index) => {
   button.addEventListener("click", () => {
+    playSound("./audio/computer-mouse-click-352734.mp3")
     if (index === 0) {
       buttons[0].style.backgroundColor = " rgb(180, 180, 180)"
       buttons[1].style.backgroundColor = "white"
