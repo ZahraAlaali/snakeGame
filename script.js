@@ -162,7 +162,8 @@ const circlePlace = () => {
     circle.style.width = "28px"
     circle.style.height = "28px"
     circle.style.borderRadius = "50%"
-    circle.style.backgroundColor = "#0077ffff"
+    circle.style.backgroundColor = "#FFD93D"
+    circle.classList.add("food")
     document.querySelector("main").append(circle)
     circle.style.position = "relative"
   }

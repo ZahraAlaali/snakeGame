@@ -11,7 +11,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #1e3e62;
   color: azure;
 }
 #page2 {
@@ -20,11 +19,16 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-  background-color: #1e3e62;
   color: azure;
 }
+#page1,
+#page2 {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #f0f0f0;
+}
+
 header {
   display: flex;
   justify-content: space-evenly;
@@ -46,20 +50,20 @@ main {
 
 .even,
 .odd {
-  background-color: #0b192c;
+  background-color: #212121;
   border-radius: 5px;
 }
 
 .snakeHead {
-  background-color: #ff6500;
-  box-shadow: 1px 1px 5px 5px #4c2508;
+  background-color: #dc143c;
+  box-shadow: 0 0 10px rgba(240, 135, 135, 0.7);
 }
 .snakeBody {
-  background-color: #ff781f;
-  box-shadow: 1px 1px 5px 5px #4c2508;
+  background-color: #f75270;
+  box-shadow: 0 0 8px rgba(240, 135, 135, 0.7);
 }
 .gameOver {
-  background-color: #1e3e62;
+  background-color: rgba(0, 0, 0, 0.9);
   width: 300px;
   height: 200px;
   padding: 20px;
@@ -71,6 +75,9 @@ main {
   align-items: center;
   justify-content: center;
   visibility: hidden;
+  border: 3px solid #134a61;
+  box-shadow: 0 0 15px #1085b8;
+  color: #fff;
 }
 .score {
   display: flex;
@@ -81,8 +88,8 @@ button {
   margin: 20px 10px 0 10px;
   padding: 5px 20px;
   border-radius: 5px;
-  border: 1px rgb(10, 7, 66) solid;
-  box-shadow: #132c4e 0px 3px 3px;
+  border: 1px rgb(39, 39, 39) solid;
+  box-shadow: #545454 0px 3px 3px;
 }
 
 .first {
@@ -90,11 +97,27 @@ button {
 }
 button:hover {
   background-color: rgb(180, 180, 180) !important;
-  transition: background-color 100ms linear;
+  transition: background-color 200ms linear;
 }
 
 .bestImg {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.food {
+  background-color: #ffcc00;
+  animation: pulse 1s infinite;
 }
