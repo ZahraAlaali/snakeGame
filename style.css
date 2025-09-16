@@ -1,7 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Signika:wght@300..700&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Jersey+10&family=Roboto:ital,wght@0,100..900;1,100..900&family=Signika:wght@300..700&display=swap");
 * {
-  font-family: "Signika", "Roboto", sans-serif;
+  font-family: "Signika", sans-serif;
+}
+html,
+body {
+  font-size: 16px;
 }
 #page1 {
   height: 100vh;
@@ -13,6 +16,7 @@
   align-items: center;
   color: azure;
 }
+
 #page2 {
   height: 100vh;
   width: 100vw;
@@ -23,9 +27,11 @@
   align-items: center;
   color: azure;
 }
+
 #page1,
 #page2 {
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  font-size: 1.3rem;
+  background: linear-gradient(135deg, #002731, #00495b, #006781);
   color: #f0f0f0;
 }
 
@@ -35,33 +41,34 @@ header {
   align-items: center;
   width: 100vw;
 }
-h4 {
-  margin-right: 20px;
-}
+
 main {
   display: grid;
   grid-template-columns: repeat(15, 28px);
   grid-template-rows: repeat(15, 28px);
   height: 450px;
-  background-color: rgb(0, 0, 0);
   gap: 2px;
-  border: 2px black solid;
+  background-color: #000;
+  border: 3px solid #00ffcc;
+  box-shadow: 0 0 20px #00ffcc, inset 0 0 10px #00ffcc;
 }
 
 .even,
 .odd {
-  background-color: #212121;
-  border-radius: 5px;
+  background-color: #111;
+  border-radius: 4px;
 }
 
 .snakeHead {
   background-color: #dc143c;
   box-shadow: 0 0 10px rgba(240, 135, 135, 0.7);
 }
+
 .snakeBody {
-  background-color: #f75270;
+  background-color: #e13a58;
   box-shadow: 0 0 8px rgba(240, 135, 135, 0.7);
 }
+
 .gameOver {
   background-color: rgba(0, 0, 0, 0.9);
   width: 300px;
@@ -79,22 +86,37 @@ main {
   box-shadow: 0 0 15px #1085b8;
   color: #fff;
 }
+
 .score {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
+.final {
+  width: 75%;
+  justify-content: space-around;
+}
+
 button {
-  margin: 20px 10px 0 10px;
+  margin: 5px 10px 5px 10px;
   padding: 5px 20px;
   border-radius: 5px;
   border: 1px rgb(39, 39, 39) solid;
   box-shadow: #545454 0px 3px 3px;
 }
-
+#page1 button {
+  margin-bottom: 30px;
+  font-size: 1.3rem;
+}
+#page2 button {
+  font-size: 1.05rem;
+}
 .first {
   background-color: rgb(180, 180, 180);
+  padding: 4px 17px;
 }
+
 button:hover {
   background-color: rgb(180, 180, 180) !important;
   transition: background-color 200ms linear;
@@ -117,7 +139,17 @@ button:hover {
     transform: scale(1);
   }
 }
+
+.score span {
+  margin: 0 10px;
+
+  font-weight: bold;
+}
 .food {
   background-color: #ffcc00;
   animation: pulse 1s infinite;
+}
+
+#page1 h1 {
+  font-size: 6rem;
 }

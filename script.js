@@ -3,7 +3,7 @@
 // Get the full URL parameters
 const params = new URLSearchParams(window.location.search)
 let level = params.get("level")
-console.log(level)
+
 let firstTime = 0
 let allDivs = []
 let speed = 250
@@ -37,12 +37,8 @@ let best = 0
 // Functions
 
 // Calculate the position of the snake
-const calcPlace = (index, num) => {
-  if (num === 1) {
-    return snakePosition[index].y * 15 + snakePosition[index].x
-  } else {
-    return lastMove[index].y * 15 + lastMove[index].x
-  }
+const calcPlace = (index) => {
+  return snakePosition[index].y * 15 + snakePosition[index].x
 }
 
 const startGame = () => {
@@ -54,9 +50,13 @@ const startGame = () => {
 
   placeSnake()
   circlePlace()
-  level === "EASY"
-    ? (buttons[0].style.backgroundColor = " rgb(180, 180, 180)")
-    : (buttons[1].style.backgroundColor = " rgb(180, 180, 180)")
+  if (level === "EASY") {
+    buttons[0].style.backgroundColor = " rgb(180, 180, 180)"
+    buttons[0].style.padding = "4px 17px"
+  } else {
+    buttons[1].style.backgroundColor = " rgb(180, 180, 180)"
+    buttons[1].style.padding = "4px 17px"
+  }
 }
 // reset function
 const reset = () => {
@@ -162,7 +162,6 @@ const circlePlace = () => {
     circle.style.width = "28px"
     circle.style.height = "28px"
     circle.style.borderRadius = "50%"
-    circle.style.backgroundColor = "#FFD93D"
     circle.classList.add("food")
     document.querySelector("main").append(circle)
     circle.style.position = "relative"
@@ -175,7 +174,7 @@ const circlePlace = () => {
 const placeSnake = () => {
   //snake
   for (let i = 0; i < snakePosition.length; i++) {
-    let place = calcPlace(i, 1)
+    let place = calcPlace(i)
     if (i === 0) {
       allDivs[place].classList.add("snakeHead")
     } else {
@@ -189,7 +188,7 @@ const placeSnake = () => {
 
 // reassign the values for the position of the snake
 const modifySnakePosition = () => {
-  let place = calcPlace(snakePosition.length - 1, 1)
+  let place = calcPlace(snakePosition.length - 1)
   for (let i = snakePosition.length - 1; i >= 1; i--) {
     snakePosition[i].x = snakePosition[i - 1].x
     snakePosition[i].y = snakePosition[i - 1].y
@@ -252,10 +251,14 @@ buttons.forEach((button, index) => {
       if (index === 0) {
         buttons[0].style.backgroundColor = " rgb(180, 180, 180)"
         buttons[1].style.backgroundColor = "white"
+        buttons[0].style.padding = "4px 17px"
+        buttons[1].style.padding = "5px 20px"
         level = "EASY"
       } else {
         buttons[0].style.backgroundColor = "white"
         buttons[1].style.backgroundColor = " rgb(180, 180, 180)"
+        buttons[1].style.padding = "4px 17px"
+        buttons[0].style.padding = "5px 20px"
         level = "HARD"
       }
     }
