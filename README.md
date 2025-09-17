@@ -34,11 +34,13 @@
 ### Getting Started
 
 #### How to Play ⌨️?
+* Easy &rightarrow;  stays at the same speed for the whole game.
+* Hard &rightarrow; starts at one speed but gets faster as the snake eats more food.
 #### Use the Arrow Keys on your keyboard to control the snake:
-* ⬆️ Up arrow or W → Move up
-* ⬇️ Down arrow or S → Move down
-* ⬅️ Left arrow or A → Move left
-* ➡️ Right arrow or D → Move right
+* ⬆️ Up arrow or W &rightarrow; Move up
+* ⬇️ Down arrow or S &rightarrow; Move down
+* ⬅️ Left arrow or A &rightarrow; Move left
+* ➡️ Right arrow or D &rightarrow; Move right
 #### Collect the food (circle) to grow longer and increase your score.
 #### Avoid hitting the walls or your own tail, or the game will be over.
 
