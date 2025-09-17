@@ -55,9 +55,15 @@
 ***
 
 ### ***Screenshots 📷***
-#### Main Page
+#### Start Menu
 ![page1](./images/Screenshot%20(50).png)
 #### Game Page
 ![page2](./images/Screenshot%20(51).png)
 #### Game Over Screen
 ![gameOver](./images/Screenshot%20(53).png)
+
+***
+
+### ***Credits***
+#### Snake GIF: [baamboozle.com](https://www.baamboozle.com/index.php/study/1258048)
+#### Designs created using [Figma](https://www.figma.com/)
