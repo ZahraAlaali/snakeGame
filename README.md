@@ -45,14 +45,6 @@
 #### Avoid hitting the walls or your own tail, or the game will be over.
 
 ***
-### ***Figma Designs***
-#### index.html
-![image](./images/Screenshot%202025-09-11%20120527.png)
-#### game.html
-![image](./images/Screenshot%202025-09-11%20120644.png)
-### A Popup
-![image](./images/Screenshot%202025-09-11%20120701.png)
-***
 
 ### ***Screenshots 📷***
 #### Start Menu
@@ -63,6 +55,12 @@
 ![gameOver](./images/Screenshot%20(53).png)
 
 ***
+
+### ***Future Features***
+- [ ] Mute Button
+- [ ] Obstacles: blocks on the board, snake must avoid
+- [ ] different food with different points
+- [ ] dark/light mode. player chooses the snake's color
 
 ### ***Credits***
 #### Snake GIF: [baamboozle.com](https://www.baamboozle.com/index.php/study/1258048)
